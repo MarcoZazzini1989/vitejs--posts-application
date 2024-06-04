@@ -11,7 +11,7 @@ const postStore = usePostsStore()
 
 
 <template>
-    <div v-for="post in postStore.posts" :key="post.id">
+    <div v-for="post in postStore.sorted" :key="post.id">
         <MyWrapper>
             <Postitem :post="post"  @get-id="(id) => {console.log(id)}" ></Postitem>
         </MyWrapper>

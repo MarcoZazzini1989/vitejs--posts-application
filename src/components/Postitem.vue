@@ -1,4 +1,8 @@
 <script setup>
+import { usePostsStore} from '../stores/posts';
+
+const postStore = usePostsStore()
+
 defineProps({
   post : {
     type : Object,
@@ -22,8 +26,9 @@ const getId = (id)=> {
         <div class="header">
             <span>Written by {{ post.author }} on {{ post.created_at }}</span>
             <div>
-               <button class="del material-icon">Delete</button>
-               <button class="save material-icon">Bookmark</button>
+               <button @click="postStore.deletePost(post.id)" class="del material-icon">delete</button>
+               <button  @click="postStore.savePost(post.id)" class="save material-icon">
+                {{ post.is_saved ? 'saved' : 'save' }}</button>
             </div>
         </div>
         <h1>{{ post.title }}</h1>
