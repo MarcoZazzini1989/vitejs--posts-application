@@ -1,24 +1,20 @@
 <script setup>
-import {ref} from 'vue'
-
-import Postitem from '../components/Postitem.vue';
-import MyWrapper from '../components/MyWrapper.vue';
-import { usePostsStore} from '../stores/posts';
+import { ref } from 'vue'
+import { usePostsStore } from '@/stores/posts'
+import PostItem from '@/components/Postitem.vue'
+import MyWrapper from '@/components/MyWrapper.vue'
 
 const postStore = usePostsStore()
-
 const postFilter = ref('all')
 
 const setPostFilter = () => {
   postFilter.value = postFilter.value === 'all' ? 'saved' : 'all'
 }
-
 </script>
 
-
 <template>
- <!-- Header -->
- <div class="header">
+  <!-- Header -->
+  <div class="header">
     <div>
       <h3>{{ postFilter === 'all' ? 'All posts' : 'Saved posts' }}</h3>
       <span v-show="postStore.loading" class="material-icons">cached</span>
@@ -28,30 +24,27 @@ const setPostFilter = () => {
     </button>
   </div>
 
-
-
+  <!-- Error -->
+  <div v-if="postStore.errMsg" class="error">
+    {{ postStore.errMsg }}
+  </div>
 
   <div v-if="postFilter === 'all'">
     <div v-for="post in postStore.sorted" :key="post.id">
-        <MyWrapper>
-            <Postitem :post="post" ></Postitem>
-        </MyWrapper>    
+      <MyWrapper>
+        <PostItem :post="post" />
+      </MyWrapper>
     </div>
   </div>
 
   <div v-if="postFilter === 'saved'">
     <div v-for="post in postStore.saved" :key="post.id">
       <MyWrapper>
-        <PostItem :post="post" ></Postitem>
+        <PostItem :post="post" />
       </MyWrapper>
     </div>
   </div>
-  
-    
 </template>
-
-
-
 
 <style lang="scss" scoped>
 .header {
