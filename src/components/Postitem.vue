@@ -28,7 +28,7 @@ const getId = (id)=> {
             <div>
                <button @click="postStore.deletePost(post.id)" class="del material-icon">delete</button>
                <button  @click="postStore.savePost(post.id)" class="save material-icon">
-                {{ post.is_saved ? 'saved' : 'save' }}</button>
+                {{ post.is_saved ? 'bookmark' : 'bookmark_border' }}</button>
             </div>
         </div>
         <h1>{{ post.title }}</h1>

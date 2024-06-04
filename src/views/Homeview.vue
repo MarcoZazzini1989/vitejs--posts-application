@@ -7,16 +7,45 @@ import { usePostsStore} from '../stores/posts';
 
 const postStore = usePostsStore()
 
+const postFilter = ref('all')
+
+const setPostFilter = () => {
+  postFilter.value = postFilter.value === 'all' ? 'saved' : 'all'
+}
+
 </script>
 
 
 <template>
+ <!-- Header -->
+ <div class="header">
+    <div>
+      <h3>{{ postFilter === 'all' ? 'All posts' : 'Saved posts' }}</h3>
+      <span v-show="postStore.loading" class="material-icons">cached</span>
+    </div>
+    <button @click="setPostFilter">
+      {{ postFilter === 'all' ? 'Show saved posts' : 'Show all posts' }}
+    </button>
+  </div>
+
+
+
+
+  <div v-if="postFilter === 'all'">
     <div v-for="post in postStore.sorted" :key="post.id">
         <MyWrapper>
-            <Postitem :post="post"  @get-id="(id) => {console.log(id)}" ></Postitem>
-        </MyWrapper>
-        
+            <Postitem :post="post" ></Postitem>
+        </MyWrapper>    
     </div>
+  </div>
+
+  <div v-if="postFilter === 'saved'">
+    <div v-for="post in postStore.saved" :key="post.id">
+      <MyWrapper>
+        <PostItem :post="post" ></Postitem>
+      </MyWrapper>
+    </div>
+  </div>
   
     
 </template>
