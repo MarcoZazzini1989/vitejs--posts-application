@@ -1,23 +1,34 @@
-<script setup></script>
+<script setup>
+import { RouterLink, RouterView } from 'vue-router';
+</script>
 
 <template>
-  <div>
-    <h1>Ciao</h1>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+ <header>
+  <nav>
+    <RouterLink to = '/' class="nav-link">Home </RouterLink>
+    <RouterLink to = '/post-create' class="nav-link">New Post </RouterLink>
+  </nav>
+ </header>
+
+ <RouterView></RouterView>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+<style lang="scss" scoped>
+nav {
+  padding: 1rem 2rem;
+  background: #1e40af;
+  border-bottom: 1px solid #60a5fa;
+  .nav-link {
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 1rem;
+    &:hover {
+      background: #60a5fa;
+    }
+  }
 }
 </style>
+
